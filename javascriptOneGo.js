@@ -16,3 +16,9 @@ let functionN = function(name){  // address of function has been passed to the v
 }
 
 console.lof(functionN)
+
+//IIFE - Immediately Invoke Function Expression
+
+(function fn(name){
+    return `Hello ${name}`
+})();
