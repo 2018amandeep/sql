@@ -15,7 +15,7 @@ let functionN = function(name){  // address of function has been passed to the v
     return `Hello ${name}`
 }
 
-console.lof(functionN)
+console.log(functionN)
 
 //IIFE - Immediately Invoke Function Expression
 
@@ -107,3 +107,15 @@ function bitCount(i) {
     i = i + (i >>> 16);
     return i & 0x3f;
 }
+
+// Join two strings
+// Concat
+
+str1.concat(str2)
+
+// Replace
+
+let str1 = "Raj kundra"
+str1.replace('Kundra', 'Kumar');  // It replace the first matching chatacter only
+str1.replaceAll("\n", "\n"); // It will replace all matching chatacters
+console.log(str1);
