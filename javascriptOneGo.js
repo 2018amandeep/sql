@@ -119,3 +119,26 @@ let str1 = "Raj kundra"
 str1.replace('Kundra', 'Kumar');  // It replace the first matching chatacter only
 str1.replaceAll("\n", "\n"); // It will replace all matching chatacters
 console.log(str1);
+
+// CharAt
+
+console.log(str1.charAt(0)); // It returns the character at given index
+
+// Q. Generate a username based on full name
+
+function generateUserName(fullName){
+    return '@' + fullName.toLowerCase() + fullName.length;
+}
+
+// Arrays
+// Collection of same type of data (linear)
+
+let arr = [11, 12, 13, 14, 15]
+
+typeof arr === 'object' // true because array is a object itself
+
+// Arrays are mutable i.e., they can be modified
+arr[0] =66;
+// 125. Valid Palindrome
+
+// Given two binary strings a and b, return their sum as a binary string.
