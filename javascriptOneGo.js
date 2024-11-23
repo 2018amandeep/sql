@@ -142,3 +142,31 @@ arr[0] =66;
 // 125. Valid Palindrome
 
 // Given two binary strings a and b, return their sum as a binary string.
+
+// Iterables -> String, Array, Object
+
+// Array Methods
+
+// Push
+
+let arr = [1, 2, 3, 4, 5]
+arr.push("hello"); // change in last of existing array. return length of updated array
+arr.pop(); // returns the deleted item -- 5
+
+let stringArr = ["Name", "id", "class","division"]
+stringArr.toString() // Name,id,class,division     return as string :  doesn't mutate original array it returns a new   
+
+arr.concat(stringArr) // concat returns a new array
+
+arr.unshift("the") // add in the starting of array 
+
+arr.shift() // removes from beginning of array returns deleted item
+
+arr.slice(0,3) // 1,2  return slice of array do not change original array it
+
+// Splice -> mutate original array, (add, remove, replace)
+
+let sliceArr = [1,2,3,4,5,6,7,8,9]
+
+sliceArr.splice(2,2,a,b)  // it will mutate the original array as [1,2,a,b,5,6,7,8,9] and it will retun [3,4] i.e.,removed array
+sliceArr.splice(2,3) // mutated in original array [1,2,6,7,8,9], output - 3,4,5
