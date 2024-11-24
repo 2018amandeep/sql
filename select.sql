@@ -178,3 +178,104 @@ select id as mantee_id, mentor_id,
 from characters as mantee_id
 where id is not null
 
+
+-- Case statements in where clause
+
+select name, level,
+case 
+when class = 'Mage' then level* 0.5
+when class IN ('Archer', 'Warrior') then level* 0.75
+else level* 1.5 end as power_level 
+FROM characters
+where case
+     when class = 'Mage' then level*5
+     when class IN ('Archer', 'Warrior') then level*7.5
+     else level*15 end >= 15
+
+-- Solve same problem using sub queries
+
+    select * from
+    (select name, level,
+    case 
+    when class = 'Mage' then level* 0.5
+    when class IN ('Archer', 'Warrior') then level* 0.75
+    else level* 1.5 end as power_level 
+    FROM characters)
+    where power_level>= 15;
+
+-- Another way of doing the same is by creating CTE = **Common Table Expression**
+
+    WITH
+    characters_alive as (select * from characters where is_alive = true),
+     power_level_exp AS (
+        select name, level,
+        case when class = 'Mage' then level* 0.5
+        when class IN ('Archer', 'Warrior') then level* 0.75
+        else level* 1.5 end as power_level
+        FROM characters_alive
+    )
+    Select * from power_level_exp where power_level>= 15;
+
+
+
+-- Question Leet Code
+Table: Movies
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| movie_id      | int     |
+| title         | varchar |
++---------------+---------+
+movie_id is the primary key (column with unique values) for this table.
+title is the name of the movie.
+ 
+
+Table: Users
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| user_id       | int     |
+| name          | varchar |
++---------------+---------+
+user_id is the primary key (column with unique values) for this table.
+The column 'name' has unique values.
+Table: MovieRating
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| movie_id      | int     |
+| user_id       | int     |
+| rating        | int     |
+| created_at    | date    |
++---------------+---------+
+(movie_id, user_id) is the primary key (column with unique values) for this table.
+This table contains the rating of a movie by a user in their review.
+created_at is the users review date. 
+ 
+
+Write a solution to:
+
+Find the name of the user who has rated the greatest number of movies. In case of a tie, return the lexicographically smaller user name.
+Find the movie name with the highest average rating in February 2020. In case of a tie, return the lexicographically smaller movie name.
+The result format is in the following example.
+
+
+    (select name as results
+from Users
+INNER JOIN MovieRating USING(user_id)
+Group by user_id
+order by COUNT(rating) DESC, name
+limit 1)
+
+union all
+
+(select title as results from Movies
+INNER JOIN MovieRating USING(movie_id)
+WHERE MONTH(created_at) = '02' and YEAR(created_at) = '2020'
+GROUP BY title
+ORDER BY AVG(rating) desc, title
+limit 1)
+
