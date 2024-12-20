@@ -335,3 +335,160 @@ select user_id,
     CONCAT(UPPER(LEFT(name,1)), LOWER(RIGHT(name, LENGTH(name)-1))) as name
 from Users
 order by user_id
+
+QWrite a solution to find for each date the number of different products sold and their names.
+
+The sold products names for each date should be sorted lexicographically.
+
+Return the result table ordered by sell_date.
+
+-- GROUP CONCAT
+select sell_date, COUNT(DISTINCT product) as num_sold, 
+GROUP_CONCAT(
+    DISTINCT product
+    order by product
+    SEPARATOR ','
+) as Products 
+from Activities
+group by sell_date
+order by sell_date, product
+
+
+Q.
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| product_id       | int     |
+| product_name     | varchar |
+| product_category | varchar |
++------------------+---------+
+product_id is the primary key (column with unique values) for this table.
+This table contains data about the companys products.
+ 
+
+Table: Orders
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| product_id    | int     |
+| order_date    | date    |
+| unit          | int     |
++---------------+---------+
+This table may have duplicate rows.
+product_id is a foreign key (reference column) to the Products table.
+unit is the number of products ordered in order_date.
+ 
+
+Write a solution to get the names of products that have at least 100 units ordered in February 2020 and their amount.
+Return the result table in any order.
+The result format is in the following example.
+
+
+select product_name, SUM(unit) as unit
+from Products
+INNER JOIN Orders USING (product_id)
+where MONTH(order_date) = 2 AND YEAR(order_date) = 2020
+GROUP BY product_name
+HAVING SUM(unit) >=100
+
+
+Q. Find montly sales and sort it by desc order.
+
+select YEAR(order_date) as year, Month(order_date) as month, SUM(sales) as totalsales
+from Sales
+Group By Year(order_date), Month(order_date)
+order by totalsales desc
+
+
+select candidate_id, SUM(skills) as skill_count
+FROM SKILLS
+where skills IN ('SQL', 'Tablue', 'Power BI')
+GROUP BY candidate_id
+HAVING COUNT(skill) = 3
+order by candidate_id asc
+
+Q. Select second highest salary
+
+select name, Max(salary) as salary from employee where salary <>
+(select MAX(salary) from employee)
+
+select t1.empname, t2.empid
+from emp as T1 
+JOIN emp as T2
+ON t1.managerid = t2.empid
+
+-- Stored Procedure
+
+Create Procedure spProcedure 
+AS
+Begin
+select * from employee where empId = 1
+END
+
+-- Call procedure just by calling its name
+-- spProcedure
+-- Execute spProcedure
+-- EXEC spProcedure
+
+
+ -- To update stored procedure
+
+ ALTER Procedure spProcedure
+ AS
+ Begin
+ SELECT * FROM EMPLOYEE WHERE EMPID =1;
+ SELECT * FROM EMPLOYEE WHERE EMPID =2;
+ END;
+
+ -- drop PROCEDURE
+
+ DROP PROCEDURE spProcedure
+
+ -- Stored procedure with parameter
+
+ Create procedure paraProcedure
+ @empId int = 1,
+ @name varchar(255)= 'Joseph'
+ AS
+ Begin
+ SELECT * FROM EMPLOYEE WHERE EMPID = @empId;
+ SELECT * FROM EMPLOYEE WHERE EMPID = @name
+ END;
+
+ -- Call procedure with parameter
+ -- EXEC paraProcedure @empId =1, @name = 'Aman'
+
+ CREATE PROC spAddDigit
+ @Num1 Int,
+ @Num3 Int,
+ @Result INT OUTPUT
+ AS
+ Begin
+    SET @Result = @Num1 + @Num2;
+end;
+
+Declare @Eid int
+EXEC spAddDigit 23,27, @Eid OUTPUT;
+select @Eid;
+
+select salary from employees pq where 2 = (
+    select COUNT(DISTINCT salary) from employee cq where pq.salary <= cq.salary;
+)
+
+-- triggers
+-- two types of triggers 1. row based trigger, 2. Table based trigger
+-- Syntax:
+CREATE [OR REPLACE] TRIGGER trigger_name
+{ BEFORE | AFTER}
+{ INSER [OR] UPDATE [OR] | DELETE}
+ON table_name
+[for each row]
+
+Declare
+
+delaration statement
+
+Begin
+executable- statement
+end;

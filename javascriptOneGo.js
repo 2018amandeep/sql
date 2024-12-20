@@ -199,8 +199,132 @@ var fibGenerator = function*() {
         // n1= temp;
         [n1, n2] = [n2, n1 +n2]
     }
-    
 };
+// JS uses callback all the time
+const high5 = (name)=> {
+    console.log("Hi", name)
+}
+
+['Harry','Den','Prashad'].forEach(high5)
+
+// Callback function allows us to create abstraction
+
+//Objects methods
+
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode:'LH',
+    bookings:[],
+    book(flightNum, name){
+        this.bookings.push({flight: `${this.iataCode}`, name})
+        console.log(`${name} has booked flight ${flightNum} on ${this.iataCode}`)
+    }
+}
+
+const eurorings = {
+    airline:'Eurorings',
+    iataCode:'ER',
+    bookings:[],
+}
+
+const book = lufthansa.book;
+book(23,'Amandeep')  // Here this will point to undefined because not book is a regular function expression
+
+// Call method 
+// manually set this keyword for any function call
+// This method makes this keyword point to the required object
+
+book.call(eurorings, 23, 'Sujju'); //Sujju has booked flight 23 on ER
+book.call(lufthansa, 24, "Dev"); // Dev has booked flight 24 on LH
+
+// Apply method
+// Same as call method diff is it does not receive a list of aeguments it instead take array of arguments
+
+book.apply(lufthansa,[256, 'John'])
+
+// Bind method
+// This doesn't immediately call the function instead it returns the new function which bound this keyword
+
+const bookER = book.bind(eurorings);
+bookER(34,'Steve Jobs')
+
+// We can also give a default value to bind method
+
+const bookER34 = book.bind(eurorings, 34);
+bookER34('Sunita') // flightNum  = 34 is already assigned to flight eurowings
+
+// Partiall Application -> it means part of argument of original function is already applied
+
+const addTax = (rate, value) => value+ value * rate;
+console.log(addTax(0.1,200))
+
+// Partial Application
+const vatTax = addTax.bind(null, 0.1);
+console.log(vatTax(500))
+
+
+// Closure
+
+// A closure is a backback that a function carries around whereerver it goes. This backpack has all the variables that were present in the variable environment where the function was created.
+
+function count(){
+    let count =0;
+    return function(){
+        count++;
+        console.log(count)
+    }
+}
+
+const counter = count();
+counter(); //1
+counter(); //2
+
+let f;
+
+// Ex:1
+function g(){
+    const a=23;
+    
+    f= function(){
+        console.log(a*2)
+        return a*2;
+    }
+}
+g()
+f();
+
+//Ex:2
+function boardPassenger(n, wait){
+    const perGroup = n/3;
+    
+    setTimeout(function(){
+        console.log(`there are 3 groups, each with ${perGroup} members`);
+    },wait*1000)
+    
+    console.log(`Timer has started after ${wait} seconds`)
+}
+
+boardPassenger(180,3)
+
+console.dir(boardPassenger)
+
+// Node js event emitter
+const EventEmitter = require('events');
+
+const ipl = new EventEmitter();
+
+ipl.on('won', ()=>{
+  console.log('KKR won the IPL')
+})
+
+ipl.on('loss', ()=> {
+  console.log('SRH lost the IPL')
+})
+
+
+ipl.emit('won')
+
+ipl.emit('loss')
 
 
 
