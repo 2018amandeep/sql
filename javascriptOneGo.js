@@ -327,4 +327,17 @@ ipl.emit('won')
 ipl.emit('loss')
 
 
+// Promises 
+
+// Stages:
+// 1. Fullfilled / Resolved
+// 2. Rejected / Failed
+// 3. Pending
+// 4. Settled
+
+
+new Promise((resolve, reject)=> {
+    resolve('hii');  // This promise will resolve
+    resolve("hello") // This will be doing nothing as promise resolve only once 
+})
 

@@ -492,3 +492,10 @@ delaration statement
 Begin
 executable- statement
 end;
+
+--all employees getting second heighest salary
+select name, salary FROM employees where
+salary = ( select MAX(salary) from employees where 
+salary < (select MAX(salary) from employees)
+)
+
