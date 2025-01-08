@@ -499,3 +499,95 @@ salary = ( select MAX(salary) from employees where
 salary < (select MAX(salary) from employees)
 )
 
+-- view
+
+CREATE VIEW detailView AS 
+select name, salary from employees where salary > 70000;
+
+-- convert sting into date
+str_to_date
+
+SELECT STR_TO_DATE('27-10-2024', '%d-%m-%y') AS date from employees
+
+-- CONCAT
+select concat('hey', '-','buddy') as name
+
+--CONCAT_WS (with saperator)
+select concat_ws('-','John','Roy', 'jim','lucy') // john-roy-jim-lucy
+
+-- SUBSTRING
+select substring('Hell boy',1,4);
+select substring('Hello boy, named rajjo', -5)  // rajjo
+select substr('Name is amazing', 1,3)
+
+--REPLACE
+REPLACE(str, from_string, to_string)
+select replace("Hello Buddy','Hello','Hey");
+select replace('abcdef', 'bcd', 'pqr')
+
+--REVERSE
+SELECT REVERSE('Hello') // olleH
+
+-- UPPER
+SELECT UPPER('Hello') // HELLO
+select UCASE('Hello')
+
+--LOWER
+SELECT LOWER('HELLo') // hello
+SELECT LCASE('hELLO')
+
+-- CHAR_LENGTH  // finds length
+select char_length('Raju');
+
+-- INSERT 
+select insert('hey whassupp', 6,0, 'Raju '); //hey wRaju hassupp
+
+-- LEFT 
+select left('hey whassupp', 3) // hey
+
+-- RIGHT
+select right('hey whassupp', 6) // whassupp
+
+-- TRIM
+select TRIM('   Hey   ')  // Hey
+
+-- REPEAT
+select repeat('😘',100); 
+
+-- group concat
+select group_concat(class) from characters; -- my sql
+
+-- string aggregate function
+
+STRING_AGG(column, saperator);
+
+select string_agg(class, ',') from characters; -- mssql
+
+-- LIKE
+SELECT * FROM employees WHERE name LIKE '%a%'; // names containing 'a'
+
+1. If you want exact n match character in any column then use n underscores
+select * from characters where class like '____';
+select * from characters where name like '%k';
+
+-- REGEXP
+
+
+-- AVG function 
+select name, experience from characters where experience =
+(select MIN(experience) from characters)
+
+-- DECIMAL
+
+CREATE TABLE Students (
+    student_id INT PRIMARY_KEY AUTOINCREMENT,
+    name CARCHAR(225) NOT NULL,
+    age INT NOT NULL,
+    grade DECIMAL(3,1) NOT NILL
+)
+
+-- Float
+FLOAT - upto ~7 digits, takes 4 bytes of memory
+Double - upto ~15 digits, takes 8 bytes of memory
+
+
